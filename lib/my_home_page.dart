@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:getx_with_imagepicker/image_controller.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -8,6 +12,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  ImageController imageController = Get.put(ImageController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,13 +33,22 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CircleAvatar(
-              radius: 100,
-              backgroundImage: ,
+            Obx(
+              () => CircleAvatar(
+                radius: 100,
+                backgroundImage: imageController.imagePath.isEmpty
+                    ? FileImage(File(imageController.imagePath.toString()))
+                    : null,
+              ),
+            ),
+            const SizedBox(
+              height: 50,
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-              onPressed: () {},
+              onPressed: () {
+                imageController.getImage();
+              },
               child: const Text(
                 'Pic Image',
                 style: TextStyle(
