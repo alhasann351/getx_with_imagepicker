@@ -36,7 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Obx(
               () => CircleAvatar(
                 radius: 100,
-                backgroundImage: imageController.imagePath.isEmpty
+                backgroundImage: imageController.imagePath.isNotEmpty
                     ? FileImage(File(imageController.imagePath.toString()))
                     : null,
               ),
